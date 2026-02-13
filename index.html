@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#1a2e1a" />
+    
+    <!-- iOS Support -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Tri-Stack" />
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/7509/7509653.png" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <title>Tri-Stack</title>
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap');
+      
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #1a2e1a; /* Deep felt green */
+        color: white;
+        overscroll-behavior-y: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      .font-serif {
+        font-family: 'Playfair Display', serif;
+      }
+
+      /* Custom Scrollbar for game logs */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0f1f0f;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2f4f2f;
+        border-radius: 4px;
+      }
+    </style>
+    <script>
+      // Global Error Handler for startup issues
+      window.onerror = function(message, source, lineno, colno, error) {
+        var root = document.getElementById('root');
+        if (root) {
+          // Only overwrite if it's a fatal white-screen error
+          if(root.innerHTML.indexOf('Loading') !== -1) {
+             root.innerHTML = '<div style="padding:20px; color: #ff9999; background: #330000; font-family:monospace;">' +
+            '<h3>Startup Error</h3>' +
+            '<p>' + message + '</p>' +
+            '</div>';
+          }
+        }
+      };
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "@vercel/analytics": "https://esm.sh/@vercel/analytics@^1.6.1",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.564.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.95.3",
+    "zustand": "https://esm.sh/zustand@^5.0.11"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root" class="flex h-screen w-full items-center justify-center text-white font-serif text-xl">
+      <div class="flex flex-col items-center gap-4">
+         <div class="w-12 h-12 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin"></div>
+         <div>Loading Assets...</div>
+      </div>
+    </div>
+    <!-- CRITICAL FIX: Load the entry point -->
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
